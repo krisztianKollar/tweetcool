@@ -5,21 +5,25 @@ import java.util.Date;
 
 public final class Tweet {
 
-    private String id;
+    private String timestamp;
     private String poster;
     private String content;
 
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-    private String timestamp = dateFormat.format(new Date());
-
-
-
-    public Tweet(String id, String timestamp, String poster, String content) {
-        this.id = id;
-        this.timestamp = timestamp;
+    public Tweet(String poster, String content) {
+        this.timestamp = getFormattedDate();
         this.poster = poster;
         this.content = content;
+    }
+
+    private String getFormattedDate() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy. MM. dd. HH:mm:ss");
+        return dateFormat.format(date);
+
+    }
+
+    public Tweet() {
     }
 
     public String getPoster() {
@@ -30,11 +34,15 @@ public final class Tweet {
         return content;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+
     @Override
     public String toString() {
-        return "Tweet{" +
-                "poster='" + poster + '\'' +
-                ", content='" + content + '\'' +
-                '}';
+        return "Tweet by " + poster + '\'' +
+                ", at" + timestamp + '\'' +
+                " Content:" + content + '\'';
     }
 }

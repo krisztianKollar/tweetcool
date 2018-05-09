@@ -8,11 +8,32 @@
     <title>Tweets</title>
 </head>
 <body>
-<h2>Tweets on Tweetcool Beta</h2>
-<c:forEach var="tweet" items="${tweets}">
-    <p><c:out value="${tweet.poster}"/>: <c:out value="${tweet.content}"/><p>
-</c:forEach>
+<h2>Tweets on TweetCool Beta</h2>
 
-<a href="index.html">Go back to the <em>tweet</em> page.</a>
+<c:choose>
+    <c:when test="${tweets.size() == 0}">
+        We have no tweets. You can create one on the previous page.
+        <br />
+    </c:when>
+    <c:otherwise>
+        <c:forEach var="tweet" items="${tweets}">
+            <p>Posted by <c:out value="${tweet.poster}"/><br>at <c:out value="${tweet.timestamp}" /><br>Content: <c:out value="${tweet.content}"/><br><p>
+        </c:forEach>
+        <br />
+    </c:otherwise>
+</c:choose>
+
+
+<p> If you want to filter the tweets, please type your filter (name/content)</p>
+<div class="center">
+    <form action="filtered-tweet" method="get">
+
+        You can filter by a chosen poster:<br>
+        <input type="text" id="filter" name="filter" placeholder="Please enter your filter"><br><br>
+        <input type="submit" value="FILTER"><br><br>
+    </form>
+</div>
+
+<a href="index.jsp">Go back to the <em>tweet</em> page.</a>
 </body>
 </html>
